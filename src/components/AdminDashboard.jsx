@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import API from "../api/api";
+import { checkFormDataField } from "../utils/commonUtils";
 
 const AdminDashboard = () => {
 	const [events, setEvents] = useState([]);
@@ -111,7 +112,7 @@ const AdminDashboard = () => {
 				/>
 				<button
 					type="submit"
-					className="bg-blue-600 text-white py-2 px-4 rounded"
+					className={`bg-blue-600 text-white py-2 px-4 rounded  ${!checkFormDataField(formData) ? 'opacity-50 pointer-events-none' : ''}`}
 				>
 					{"Add Event"}
 				</button>
@@ -122,14 +123,14 @@ const AdminDashboard = () => {
 				{events.map((event) => (
 					<li key={event._id} className="mb-4">
 						<div className="bg-gray-800 p-6 rounded-lg shadow-md">
-							<h3 className="text-xl font-bold">{event.name}</h3>
-							<p>{event.description}</p>
-							<p>Venue: {event.venue}</p>
-							<p>Date: {new Date(event.date).toLocaleDateString()}</p>
-							<p>Total Ticket: {event.totalTickets}</p>
-							<p>Ticket Price: ${event.ticketPrice}</p>
+							<h3 className="text-xl font-bold">{event?.name}</h3>
+							<p>{event?.description}</p>
+							<p>Venue: {event?.venue}</p>
+							<p>Date: {new Date(event?.date).toLocaleDateString()}</p>
+							<p>Total Ticket: {event?.totalTickets}</p>
+							<p>Ticket Price: ${event?.ticketPrice}</p>
 							<button
-								onClick={() => handleDelete(event.id)}
+								onClick={() => handleDelete(event?.id)}
 								className="bg-red-600 text-white py-1 px-2 rounded mt-2"
 							>
 								Delete

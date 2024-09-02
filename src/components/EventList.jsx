@@ -18,7 +18,7 @@ const EventList = () => {
 			{events.map((event) => (
 				<div
 					key={event.id}
-					className="bg-[#383838] text-center flex flex-col gap-3 p-4 rounded-lg shadow-md text-white"
+					className="bg-[#383838] text-center flex justify-between flex-col gap-3 p-4 rounded-lg shadow-md text-white"
 				>
 					<h3 className="text-xl font-semibold">{event.name}</h3>
 					<p className="text-white">
@@ -29,9 +29,9 @@ const EventList = () => {
 					<p className="text-white">Venue: {event.venue}</p>
 					<Link
 						to={`/events/${event.id}`}
-						className="text-blue-600 hover:underline mt-4 block"
+						className="bg-blue-600 text-white py-2 px-4 rounded  hover:text-black mt-4 block"
 					>
-						View Details
+						View Event & Book Ticket
 					</Link>
 				</div>
 			))}

@@ -50,7 +50,6 @@ const Profile = () => {
 				<h3 className="text-2xl font-semibold mb-4">Welcome, {user.name}!</h3>
 			)}
 			<h3 className="text-2xl font-semibold mb-4">Your Tickets</h3>
-			{loading && <h3 className="text-yellow-300">Loading...</h3>}
 			{Object.keys(groupedTickets).length > 0 ? (
 				Object.keys(groupedTickets).map((eventName) => (
 					<div key={eventName} className="mb-8">
@@ -61,7 +60,6 @@ const Profile = () => {
 									key={ticket.id}
 									className="p-4 border border-gray-200 rounded-lg"
 								>
-									<p>Seat: {ticket.seatNumber}</p>
 									<p>Ticket Code: {ticket.code}</p>
 									<p>
 										Purchased on:{" "}
@@ -73,10 +71,13 @@ const Profile = () => {
 					</div>
 				))
 			) : (
-				<p>No tickets purchased yet.</p>
+				loading ? <h3 className="text-yellow-300">Loading........</h3> : <p>No tickets purchased yet.</p>
+
 			)}
-			<Logout />
-		</div>
+			<div className="mt-4">
+				<Logout />
+			</div>
+		</div >
 	);
 };
 

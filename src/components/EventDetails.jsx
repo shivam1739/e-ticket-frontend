@@ -12,7 +12,7 @@ const EventDetails = () => {
 	const { id } = useParams();
 	const [event, setEvent] = useState(null);
 	const [tickets, setTickets] = useState([]);
-	const [seatCount, setSeatCount] = useState(0);
+	const [seatCount, setSeatCount] = useState(1);
 	const [isPurchasing, setIsPurchasing] = useState(false);
 	const [purchaseError, setPurchaseError] = useState(null);
 	const isAuthenticated = !!Cookies.get("authToken");
@@ -51,7 +51,7 @@ const EventDetails = () => {
 			return;
 		}
 
-		if (seatCount > event.totalTickets) {
+		if (seatCount >= event.soldTicketCount) {
 			toast.error("Not enough seats available.");
 			return;
 		}
@@ -150,14 +150,14 @@ const EventDetails = () => {
 					)}
 
 					<button
-						className={`mt-4 bg-blue-600 text-white py-2 px-4 rounded ${isPurchasing || seatCount <= 0
+						className={`mt-4 bg-blue-600 text-white py-2 px-4 rounded ${isPurchasing || seatCount <= 0 || !seatCount
 							? "opacity-50 cursor-not-allowed"
 							: ""
 							}`}
 						onClick={handlePurchase}
-						disabled={isPurchasing || seatCount <= 0}
+
 					>
-						{isPurchasing ? "Purchasing..." : "Purchase Tickets"}
+						{!(event.totalTickets - event.soldTicketCount) ? "Sold out" : isPurchasing ? "Purchasing..." : "Purchase Tickets"}
 					</button>
 				</div>
 			)}
