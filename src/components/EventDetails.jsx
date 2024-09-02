@@ -51,7 +51,7 @@ const EventDetails = () => {
 			return;
 		}
 
-		if (seatCount >= event.soldTicketCount) {
+		if (seatCount >= event.totalTickets - event.soldTicketCount) {
 			toast.error("Not enough seats available.");
 			return;
 		}
@@ -150,8 +150,8 @@ const EventDetails = () => {
 					)}
 
 					<button
-						className={`mt-4 bg-blue-600 text-white py-2 px-4 rounded ${isPurchasing || seatCount <= 0 || !seatCount
-							? "opacity-50 cursor-not-allowed"
+						className={`mt-4 bg-blue-600 text-white py-2 px-4 rounded ${isPurchasing || seatCount <= 0 || !seatCount || !(event.totalTickets - event.soldTicketCount)
+							? "opacity-50 pointer-events-none"
 							: ""
 							}`}
 						onClick={handlePurchase}
