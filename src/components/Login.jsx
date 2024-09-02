@@ -4,7 +4,7 @@ import API from "../api/api";
 import { toast } from "react-toastify";
 import {
 	saveTicketsToLocalStorage,
-	saveUserDataToSessionStorage,
+	saveUserDataToLocalStorage,
 } from "../utils/storageFunctions";
 
 const Login = () => {
@@ -23,7 +23,7 @@ const Login = () => {
 
 				Cookies.set("authToken", data.token, { expires: 7 });
 
-				saveUserDataToSessionStorage({
+				saveUserDataToLocalStorage({
 					id: data.data.id,
 					name: data.data.username,
 					email: data.data.email,

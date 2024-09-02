@@ -8,7 +8,7 @@ const Logout = () => {
 
 	const handleLogout = () => {
 		Cookies.remove("authToken");
-		sessionStorage.clear();
+		localStorage.clear();
 		localStorage.clear();
 		toast.success("Logout successful!");
 		navigate("/login");

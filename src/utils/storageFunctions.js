@@ -20,16 +20,16 @@ export const getTicketsFromLocalStorage = () => {
 	return decryptedTickets;
 };
 
-export const saveUserDataToSessionStorage = (user) => {
+export const saveUserDataToLocalStorage = (user) => {
 	const encryptedUser = xorEncryptDecrypt(
 		JSON.stringify(user),
 		import.meta.env.VITE_XOR_KEY
 	);
-	sessionStorage.setItem("user", encryptedUser);
+	localStorage.setItem("user", encryptedUser);
 };
 
-export const getUserDataFromSessionStorage = () => {
-	const encryptedUser = sessionStorage.getItem("user");
+export const getUserDataFromLocalStorage = () => {
+	const encryptedUser = localStorage.getItem("user");
 	if (!encryptedUser) return null;
 
 	try {

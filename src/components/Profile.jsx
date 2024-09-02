@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Logout from "./Logout";
 import {
-	getUserDataFromSessionStorage,
+	getUserDataFromLocalStorage,
 } from "../utils/storageFunctions";
 import API from "../api/api";
 
@@ -9,11 +9,10 @@ const Profile = () => {
 	const [tickets, setTickets] = useState([]);
 	const [user, setUser] = useState({ name: "", email: "" });
 	const [loading, setLoading] = useState(false)
-
 	useEffect(() => {
 		const fetchUserData = async () => {
 
-			const userData = getUserDataFromSessionStorage();
+			const userData = getUserDataFromLocalStorage();
 			const ticketData = await API.get("/ticket/my/booking", {
 				userID: userData.id,
 			});
@@ -22,14 +21,13 @@ const Profile = () => {
 
 			if (userData) {
 				setLoading(false)
-				setUser({ name: userData.name, email: userData.email });
+				setUser({ name: userData.username, email: userData.email });
 			}
 		};
 		setLoading(true)
 
 		fetchUserData();
 	}, []);
-
 
 	const groupedTickets =
 		tickets && tickets.length > 0
