@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Logout from "./Logout";
 import {
-	getTicketsFromLocalStorage,
 	getUserDataFromSessionStorage,
 } from "../utils/storageFunctions";
 import API from "../api/api";
@@ -9,10 +8,10 @@ import API from "../api/api";
 const Profile = () => {
 	const [tickets, setTickets] = useState([]);
 	const [user, setUser] = useState({ name: "", email: "" });
+	const [loading, setLoading] = useState(false)
 
 	useEffect(() => {
 		const fetchUserData = async () => {
-
 
 			const userData = getUserDataFromSessionStorage();
 			const ticketData = await API.get("/ticket/my/booking", {
@@ -22,9 +21,11 @@ const Profile = () => {
 			setTickets(ticketData.data || []);
 
 			if (userData) {
+				setLoading(false)
 				setUser({ name: userData.name, email: userData.email });
 			}
 		};
+		setLoading(true)
 
 		fetchUserData();
 	}, []);
@@ -49,6 +50,7 @@ const Profile = () => {
 				<h3 className="text-2xl font-semibold mb-4">Welcome, {user.name}!</h3>
 			)}
 			<h3 className="text-2xl font-semibold mb-4">Your Tickets</h3>
+			{loading && <h3 className="text-yellow-300">Loading...</h3>}
 			{Object.keys(groupedTickets).length > 0 ? (
 				Object.keys(groupedTickets).map((eventName) => (
 					<div key={eventName} className="mb-8">
