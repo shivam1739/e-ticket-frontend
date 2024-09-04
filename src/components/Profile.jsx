@@ -4,15 +4,27 @@ import {
 	getUserDataFromLocalStorage,
 } from "../utils/storageFunctions";
 import API from "../api/api";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Profile = () => {
 	const [tickets, setTickets] = useState([]);
 	const [user, setUser] = useState({ name: "", email: "" });
 	const [loading, setLoading] = useState(false)
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		const fetchUserData = async () => {
 
 			const userData = getUserDataFromLocalStorage();
+			if (!userData) {
+				Cookies.remove("authToken");
+				localStorage.clear();
+				localStorage.clear();
+				navigate("/login");
+				window.location.reload();
+			}
+
 			const ticketData = await API.get("/ticket/my/booking", {
 				userID: userData.id,
 			});

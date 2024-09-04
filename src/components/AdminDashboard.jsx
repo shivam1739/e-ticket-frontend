@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import API from "../api/api";
 import { checkFormDataField } from "../utils/commonUtils";
+import { toast } from "react-toastify";
 
 const AdminDashboard = () => {
 	const [events, setEvents] = useState([]);
@@ -57,6 +58,7 @@ const AdminDashboard = () => {
 			setEvents(events.filter((event) => event.id !== id));
 		} catch (error) {
 			console.error("Error deleting event", error);
+			toast.error(error?.response?.data?.message);
 		}
 	};
 

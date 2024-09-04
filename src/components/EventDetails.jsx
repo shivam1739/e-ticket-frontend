@@ -51,7 +51,7 @@ const EventDetails = () => {
 			return;
 		}
 
-		if (seatCount >= event.totalTickets - event.soldTicketCount) {
+		if (seatCount > event.totalTickets - event.soldTicketCount) {
 			toast.error("Not enough seats available.");
 			return;
 		}
@@ -117,7 +117,6 @@ const EventDetails = () => {
 									key={ticket.id}
 									className="p-4 border border-gray-200 rounded-lg"
 								>
-									<p>Seat: {ticket.seatNumber}</p>
 									<p>Ticket Code: {ticket.code}</p>
 									<p>
 										Purchased on:{" "}
